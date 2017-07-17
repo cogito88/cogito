@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Android_mvvm_noteapp</string>
+    <string name="app_name">NOTES</string>
+    <string name="days_until">%d days remaining</string>
 </resources>

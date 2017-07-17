@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.temporal.ChronoUnit;
 
 import static cogito.aristotle.practices.android_mvvm_noteapp.entity.Note.TABLE_NAME;
 
@@ -45,5 +46,9 @@ public class Note {
 
     public LocalDateTime getDate() {
         return date;
+    }
+
+    public long getDaysUntil() {
+        return ChronoUnit.DAYS.between(LocalDateTime.now(), getDate());
     }
 }
