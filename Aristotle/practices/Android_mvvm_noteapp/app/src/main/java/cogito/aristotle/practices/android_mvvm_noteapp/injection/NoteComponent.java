@@ -10,8 +10,8 @@ import dagger.Component;
  * Created by cogito88 on 7/12/17.
  */
 
-@Singleton
-@Component(modules = {NoteModule.class})
+@SessionScope
+@Component(dependencies = AppComponent.class, modules = NoteModule.class)
 public interface NoteComponent {
     void inject(NoteListViewModel noteListViewModel);
     void inject(NoteAddViewModel noteAddViewModel);

@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import cogito.aristotle.practices.android_mvvm_noteapp.entity.Note;
-import cogito.aristotle.practices.android_mvvm_noteapp.repository.local.db.NoteDatabase;
+import cogito.aristotle.practices.android_mvvm_noteapp.repository.local.db.AppDatabase;
 import io.reactivex.Completable;
 
 /**
@@ -19,24 +19,24 @@ import io.reactivex.Completable;
 public class NoteRepositoryImpl implements INoteRepository {
 
     @Inject
-    NoteDatabase noteDatabase;
+    AppDatabase appDatabase;
 
-    public NoteRepositoryImpl(NoteDatabase noteDatabase) {
-        this.noteDatabase = noteDatabase;
+    public NoteRepositoryImpl(AppDatabase appDatabase) {
+        this.appDatabase = appDatabase;
     }
 
     @Override
     public LiveData<List<Note>> getNotes() {
-        return this.noteDatabase.noteDao().getNotes(LocalDateTime.now());
+        return this.appDatabase.noteDao().getNotes(LocalDateTime.now());
     }
 
     @Override
     public Completable addNote(Note note) {
-        return Completable.fromAction(() -> noteDatabase.noteDao().addNote(note));
+        return Completable.fromAction(() -> appDatabase.noteDao().addNote(note));
     }
 
     @Override
     public Completable deleteNote(Note note) {
-        return Completable.fromAction(() -> noteDatabase.noteDao().deleteNote(note));
+        return Completable.fromAction(() -> appDatabase.noteDao().deleteNote(note));
     }
 }

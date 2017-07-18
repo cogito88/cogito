@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import cogito.aristotle.practices.android_mvvm_noteapp.MvvmNoteApplication;
 import cogito.aristotle.practices.android_mvvm_noteapp.repository.INoteRepository;
 import cogito.aristotle.practices.android_mvvm_noteapp.repository.NoteRepositoryImpl;
-import cogito.aristotle.practices.android_mvvm_noteapp.repository.local.db.NoteDatabase;
+import cogito.aristotle.practices.android_mvvm_noteapp.repository.local.db.AppDatabase;
 import dagger.Module;
 import dagger.Provides;
 
@@ -18,25 +18,10 @@ import dagger.Provides;
 
 @Module
 public class NoteModule {
-    private MvvmNoteApplication noteApplication;
-
-    public NoteModule(MvvmNoteApplication noteApplication) {
-        this.noteApplication = noteApplication;
-    }
-
     @Provides
-    Context applicationContext() { return noteApplication; }
-
-    @Provides
-    @Singleton
-    INoteRepository providesINoteRepository(NoteDatabase noteDatabase) {
-        return new NoteRepositoryImpl(noteDatabase);
-    }
-
-    @Provides
-    @Singleton
-    NoteDatabase providesNoteDatabase(Context context) {
-        return Room.databaseBuilder(context.getApplicationContext(), NoteDatabase.class, "note_db").build();
+    @SessionScope
+    INoteRepository providesINoteRepository(AppDatabase appDatabase) {
+        return new NoteRepositoryImpl(appDatabase);
     }
 
 }

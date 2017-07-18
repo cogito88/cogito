@@ -21,6 +21,4 @@ public class DateTypeConverter {
         return date == null ? null : date.toInstant(ZoneOffset.ofTotalSeconds(0)).getEpochSecond();
     }
 
-
-
 }
